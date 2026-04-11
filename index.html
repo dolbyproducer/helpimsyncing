@@ -696,7 +696,7 @@
         No brief is too complex. No timeline too tight for a first conversation.
       </p>
       <div class="contact-details reveal">
-        <div class="contact-line"><strong>Email</strong><a href="/cdn-cgi/l/email-protection#a1c9c4cdcdcee1c9c4cdd1c8ccd2d8cfc2c8cfc68fc3c4"><span class="__cf_email__" data-cfemail="acc4c9c0c0c3ecc4c9c0dcc5c1dfd5c2cfc5c2cb82cec9">[email&#160;protected]</span></a></div>
+        <div class="contact-line"><strong>Email</strong><a href="#" id="main-email"></a></div>
         <div class="contact-line"><strong>Phone</strong><a href="tel:+32495228656">+32 495 228 656</a></div>
         <div class="contact-line"><strong>Based</strong><span>Belgium — serving Benelux &amp; beyond</span></div>
         <div class="contact-line"><strong>Lang</strong><span>EN · FR · NL · DE</span></div>
@@ -771,7 +771,7 @@
     </div>
     <div class="gdpr-block">
       <h4>Your Rights</h4>
-      <p>Under GDPR you have the right to access, rectify, erase, restrict, or port your personal data, and to object to processing. Contact us at <a href="/cdn-cgi/l/email-protection#1363617a6572706a537b767f637a7e606a7d707a7d743d7176"><span class="__cf_email__" data-cfemail="8dfdffe4fbeceef4cde5e8e1fde4e0fef4e3eee4e3eaa3efe8">[email&#160;protected]</span></a>. You may also lodge a complaint with the <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank">Belgian Data Protection Authority (GBA/APD)</a>.</p>
+      <p>Under GDPR you have the right to access, rectify, erase, restrict, or port your personal data, and to object to processing. Contact us at <a href="#" id="privacy-email"></a>. You may also lodge a complaint with the <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank">Belgian Data Protection Authority (GBA/APD)</a>.</p>
     </div>
     <div class="gdpr-block">
       <h4>Retention</h4>
@@ -802,8 +802,19 @@
   </div>
   <span class="footer-right">Music licensing for brands. · EN · FR · NL · DE</span>
 </footer>
+<script>
+(function(){
+  var u = 'hello';
+  var d = 'helpimsyncing.com';
+  var e = u + '@' + d;
+  var m = document.getElementById('main-email');
+  if(m){ m.href = 'mailto:' + e; m.textContent = e; }
+  var p = document.getElementById('privacy-email');
+  if(p){ p.href = 'mailto:privacy@' + d; p.textContent = 'privacy@' + d; }
+})();
+</script>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Buoy — fixed opacity
   document.querySelector('.hero-bg-buoy').style.opacity = 0.25;
 
