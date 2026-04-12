@@ -703,54 +703,19 @@
       </div>
     </div>
 
-    <form class="contact-form reveal" id="contact-form">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="fname">First Name</label>
-          <input class="form-input" type="text" id="fname" name="fname" required placeholder="Sophie">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="lname">Last Name</label>
-          <input class="form-input" type="text" id="lname" name="lname" required placeholder="Dubois">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="company">Company / Agency</label>
-        <input class="form-input" type="text" id="company" name="company" placeholder="MegaMarketing">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-input" type="email" id="email" name="email" required placeholder="sophie@megamarketing.be">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="need">What do you need?</label>
-        <select class="form-select" id="need" name="need">
-          <option value="">— Select —</option>
-          <option>Rights clearance for a specific track</option>
-          <option>Music supervision for a campaign</option>
-          <option>Original composition</option>
-          <option>Radio ad production</option>
-          <option>Music strategy / alternatives</option>
-          <option>Something else</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="message">Brief / Message</label>
-        <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about the project, track, timeline, or budget..."></textarea>
-      </div>
-      <div class="gdpr-check">
-        <input type="checkbox" id="gdpr-consent" name="gdpr" required>
-        <label for="gdpr-consent">
-          I agree to the processing of my personal data in accordance with the <a href="#gdpr-policy">privacy policy</a> of Help, I'm Syncing. My data will be used solely to respond to this enquiry and will not be shared with third parties.
-        </label>
-      </div>
-      <button type="submit" class="btn-submit">
-        Send Brief
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <div class="reveal">
+      <a href="#" id="brief-btn" class="btn-submit" style="display:inline-flex; margin-top:16px; text-decoration:none; font-size:28px; padding:24px 64px;">
+        Send Us Your Brief
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </button>
-    </form>
+      </a>
+      <p style="margin-top:24px; font-size:13px; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:.12em;">YOUR EMAIL CLIENT WILL OPEN AUTOMATICALLY</p>
+    </div>
+    <div id="form-success" style="display:none; padding: 48px 0;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--orange); margin-bottom:16px;">Message Received.</div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:18px; color:#d0d0d0; line-height:1.6;">Thank you for your brief.<br>We'll be in touch within 24 hours.</div>
+    </div>
     <div id="form-success" style="display:none; padding: 48px 0;">
       <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--orange); margin-bottom:16px;">Message Received.</div>
       <div style="font-family:'DM Sans',sans-serif; font-size:18px; color:#d0d0d0; line-height:1.6;">Thank you for your brief.<br>We'll be in touch within 24 hours.</div>
@@ -810,6 +775,8 @@
   var e = u + '@' + d;
   var m = document.getElementById('main-email');
   if(m){ m.href = 'mailto:' + e; m.textContent = e; }
+  var bb = document.getElementById('brief-btn');
+  if(bb){ bb.href = 'mailto:' + e + '?subject=New Brief'; }
   var p = document.getElementById('privacy-email');
   if(p){ p.href = 'mailto:privacy@' + d; p.textContent = 'privacy@' + d; }
 })();
@@ -869,56 +836,9 @@
     waveDiv.appendChild(b);
   }
 
-  // Form event listener — attached directly, not via onsubmit attribute
-  // Form — Formspree
-  async function handleSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const form = document.getElementById('contact-form');
-    const btn = form.querySelector('.btn-submit');
-    const success = document.getElementById('form-success');
-    btn.textContent = 'Sending...';
-    btn.style.opacity = '.5';
-    btn.style.pointerEvents = 'none';
-    const data = new FormData(form);
-    try {
-      const res = await fetch('https://formspree.io/f/mqegrggg', {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      const json = await res.json();
-      if (res.ok) {
-        form.style.display = 'none';
-        success.style.display = 'block';
-      } else {
-        btn.textContent = 'Send Brief';
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
-        alert('Something went wrong. Please try again.');
-      }
-    } catch(err) {
-      btn.textContent = 'Send Brief';
-      btn.style.opacity = '1';
-      btn.style.pointerEvents = 'auto';
-      alert('Connection error. Please email hello@helpimsyncing.com directly.');
-    }
-    return false;
+  // Show success message if redirected back with ?success=true
+  if(window.location.search.indexOf('success') > -1) {
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    document.getElementById('contact').scrollIntoView();
   }
-  // Scroll reveal — hide first, then reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  reveals.forEach(el => el.classList.add('hidden'));
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.remove('hidden');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
-
-  // Attach form handler after all DOM is ready
-  var cf = document.getElementById('contact-form');
-  if(cf) { cf.addEventListener('submit', handleSubmit); }
-  else { console.error('contact-form not found'); }
