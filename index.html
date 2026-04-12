@@ -703,7 +703,7 @@
       </div>
     </div>
 
-    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <form class="contact-form reveal" id="contact-form" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="fname">First Name</label>
@@ -750,11 +750,11 @@
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </button>
-      <div id="form-success" style="display:none; padding: 48px 0;">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--orange); margin-bottom:16px;">Message Received.</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:18px; color:#d0d0d0; line-height:1.6;">Thank you for your brief.<br>We'll be in touch within 24 hours.</div>
-      </div>
     </form>
+    <div id="form-success" style="display:none; padding: 48px 0;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--orange); margin-bottom:16px;">Message Received.</div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:18px; color:#d0d0d0; line-height:1.6;">Thank you for your brief.<br>We'll be in touch within 24 hours.</div>
+    </div>
   </div>
 </section>
 
