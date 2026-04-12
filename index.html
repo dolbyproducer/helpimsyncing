@@ -703,7 +703,7 @@
       </div>
     </div>
 
-    <form class="contact-form reveal" id="contact-form" onsubmit="handleSubmit(event)">
+    <form class="contact-form reveal" id="contact-form">
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="fname">First Name</label>
@@ -868,6 +868,9 @@
     b.style.animationDuration = (1.1 + Math.random() * 1.3) + 's';
     waveDiv.appendChild(b);
   }
+
+  // Form event listener — attached directly, not via onsubmit attribute
+  document.getElementById('contact-form').addEventListener('submit', handleSubmit);
 
   // Scroll reveal — hide first, then reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
