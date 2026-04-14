@@ -166,6 +166,8 @@
       transition: border-color .2s, color .2s;
     }
     .lang-badge:hover { border-color: var(--orange); color: var(--orange); }
+    .lang-badge.active { border-color: var(--orange); color: var(--orange); background: rgba(255,95,0,.1); }
+    .lang-badge { cursor: pointer; }
 
     /* WAVE DIVIDER */
     .wave-divider {
@@ -197,15 +199,16 @@
 
     /* PROBLEM */
     #problem { background: var(--grey); }
-    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .problem-intro { font-size: clamp(16px, 1.8vw, 21px); line-height: 1.65; color: var(--muted); }
     .problem-intro strong { color: var(--white); font-weight: 400; }
     .scenario-list { list-style: none; display: flex; flex-direction: column; gap: 3px; }
     .scenario-item {
       background: var(--mid); padding: 28px 32px;
-      display: flex; gap: 24px; align-items: flex-start;
+      display: flex; gap: 24px; align-items: center;
       border-left: 3px solid transparent;
       transition: border-color .3s, background .3s;
+      flex: 1;
     }
     .scenario-item:hover { border-color: var(--orange); background: #2a2a2a; }
     .sc-num {
@@ -393,6 +396,7 @@
     .gdpr-block a:hover { color: var(--white); }
 
     /* FOOTER */
+    .footer-langs { display: flex; gap: 12px; }
     footer {
       background: var(--black); padding: 36px 56px;
       border-top: 1px solid var(--mid);
@@ -401,6 +405,10 @@
     .footer-logo { display: flex; align-items: center; gap: 14px; }
     .footer-copy { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; color: var(--muted); }
     .footer-right { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; color: var(--muted); }
+
+    /* PHONE OBFUSCATION */
+    .phone-obf { unicode-bidi: bidi-override; direction: rtl; }
+    .phone-obf::before { content: "656 822 594 23+"; direction: ltr; unicode-bidi: bidi-override; }
 
     /* REVEAL */
     .reveal { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
@@ -418,7 +426,8 @@
       .services-grid { grid-template-columns: 1fr; }
       .gdpr-grid { grid-template-columns: 1fr; gap: 32px; }
       .wave-divider { padding: 0 24px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+      .footer-langs { display: flex; gap: 12px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
     }
   </style>
 </head>
@@ -457,11 +466,11 @@
     <span class="nav-logo-text">Help, I'm Syncing</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#problem">The Problem</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#cases">Cases</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#problem" data-i18n="nav_problem">The Problem</a></li>
+    <li><a href="#services" data-i18n="nav_services">Services</a></li>
+    <li><a href="#cases" data-i18n="nav_cases">Cases</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -476,19 +485,19 @@
 
   <div class="alert-badge">
     <span class="alert-dot"></span>
-    Music Rights Emergency ? We Come To The Rescue
+    <span data-i18n="alert_badge">Music Rights Emergency ? We Come To The Rescue</span>
   </div>
 
   <div class="hero-footer">
     <p class="hero-tagline">
-      <strong style="white-space:nowrap;">Music licensing for brands. And the ones that brand brands.</strong><br>
-      When you need a famous track cleared fast — and done right.
+      <strong style="white-space:nowrap;" data-i18n="hero_strong">Music licensing for brands. And the ones that brand brands.</strong><br>
+      <span data-i18n="hero_sub">When you need a famous track cleared fast — and done right.</span>
     </p>
     <div class="hero-langs">
-      <span class="lang-badge">EN</span>
-      <span class="lang-badge">FR</span>
-      <span class="lang-badge">NL</span>
-      <span class="lang-badge">DE</span>
+      <span class="lang-badge" onclick="setLang('en')">EN</span>
+      <span class="lang-badge" onclick="setLang('fr')">FR</span>
+      <span class="lang-badge" onclick="setLang('nl')">NL</span>
+      <span class="lang-badge" onclick="setLang('de')">DE</span>
     </div>
   </div>
 </section>
@@ -498,45 +507,38 @@
 
 <!-- PROBLEM -->
 <section id="problem">
-  <div class="sec-label">01 — The Problem</div>
+  <div class="sec-label" data-i18n="label_01">01 — The Problem</div>
   <div class="problem-grid">
     <div>
-      <h2 class="sec-title reveal">You sold<br>the idea.<br>Now what?</h2>
-      <p class="problem-intro reveal">
+      <h2 class="sec-title reveal" data-i18n-html="problem_title">You sold<br>the idea.<br>Now what?</h2>
+      <p class="problem-intro reveal" data-i18n-html="problem_intro">
         The creative presentation went perfectly. The client approved the concept, loved the track, and signed off the budget.<br><br>
         Then legal asks: <strong>"Do we actually have the rights to use that?"</strong><br><br>
         Suddenly the production timeline is on hold. Nobody in the agency knows who to call. The brand manager is getting nervous. And the campaign launch date isn't moving.
         <br><br>
-        <strong>This is the moment we exist for.</strong>
+        <strong>This is the moment we exist for.</strong><br>An even better moment would have been before you sold the idea.
       </p>
     </div>
     <ul class="scenario-list">
       <li class="scenario-item reveal">
         <span class="sc-num">01</span>
         <div class="sc-body">
-          <strong>Your agency doesn't have a music rights department</strong>
-          <p>Most Belgian agencies and brands don't. When a famous track is needed, it falls to a producer or account manager who has never negotiated a sync licence in their life. That's where campaigns get delayed — or get it wrong.</p>
+          <strong data-i18n="sc1_title">Your agency doesn't have a music rights department</strong>
+          <p data-i18n="sc1_body">Most don't. When a famous track is needed, it falls to a producer or account manager who has never negotiated a sync licence — and often doesn't know whether the track is even available for advertising use. That's where campaigns get delayed, or get it wrong.</p>
         </div>
       </li>
       <li class="scenario-item reveal">
         <span class="sc-num">02</span>
         <div class="sc-body">
-          <strong>You don't know if the track is even available for advertising</strong>
-          <p>Some artists refuse all commercial use. Some publishers take months to respond. Some tracks have co-owners across four different territories. We know this before you brief the client — not after.</p>
+          <strong data-i18n="sc2_title">The budget conversation happens too late</strong>
+          <p data-i18n="sc2_body">An all-media licence for a famous track can easily run into five figures — sometimes more. If that number only surfaces after the client has fallen in love with the song, you have a problem. We give you a realistic picture <span style="color:var(--white);font-weight:500;">before</span> anything is committed.</p>
         </div>
       </li>
       <li class="scenario-item reveal">
         <span class="sc-num">03</span>
         <div class="sc-body">
-          <strong>The budget conversation happens too late</strong>
-          <p>An all-media licence for a famous track can easily run into five figures — sometimes more. If that number only surfaces after the client has fallen in love with the song, you have a problem. We give you a realistic picture before anything is committed.</p>
-        </div>
-      </li>
-      <li class="scenario-item reveal">
-        <span class="sc-num">04</span>
-        <div class="sc-body">
-          <strong>The clock is already running</strong>
-          <p>Clearances involve multiple rights holders, international approvals, and legal paperwork — minimum two weeks even when everything goes smoothly. We start the process the right way from day one, so your campaign doesn't wait for a signature.</p>
+          <strong data-i18n="sc3_title">The clock is already running</strong>
+          <p data-i18n="sc3_body">Clearances involve multiple rights holders, international approvals, and legal paperwork — minimum two weeks even when everything goes smoothly. We start the process the right way from day one, so your campaign doesn't wait for a signature.</p>
         </div>
       </li>
     </ul>
@@ -545,73 +547,73 @@
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="sec-label">02 — What We Do</div>
-  <h2 class="sec-title reveal">Full-service<br>music licensing.</h2>
+  <div class="sec-label" data-i18n="label_02">02 — What We Do</div>
+  <h2 class="sec-title reveal" data-i18n-html="svc_title">Full-service<br>music licensing.</h2>
   <div class="services-grid">
     <div class="svc-card reveal">
       <div class="svc-num">01</div>
-      <h3 class="svc-name">Rights Clearance</h3>
-      <p class="svc-desc">We identify all rights holders — publisher, master, neighbouring rights — and negotiate sync licences on your behalf with Warner Chappell, Universal, Sony, and independent publishers worldwide.</p>
+      <h3 class="svc-name" data-i18n="svc1_name">Rights Clearance</h3>
+      <p class="svc-desc" data-i18n="svc1_desc">We identify all rights holders — publisher, master, neighbouring rights — and negotiate sync licences on your behalf with Warner Chappell, Universal, Sony, and independent publishers worldwide.</p>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">02</div>
-      <h3 class="svc-name">Music Strategy</h3>
-      <p class="svc-desc">Before you commit to a track, we assess feasibility, budget, and alternatives. We present tiered options — ideal choice, safer fallback, wildcard — so your campaign never stalls on a refusal.</p>
+      <h3 class="svc-name" data-i18n="svc2_name">Music Strategy</h3>
+      <p class="svc-desc" data-i18n="svc2_desc">Before you commit to a track, we assess feasibility, budget, and alternatives. We present tiered options — ideal choice, safer fallback, wildcard — so your campaign never stalls on a refusal.</p>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">03</div>
-      <h3 class="svc-name">Music Supervision</h3>
-      <p class="svc-desc">From brief to final delivery. We find the right music, manage the creative and legal process end-to-end, and ensure every track is properly licensed for every medium — TV, radio, online, outdoor, cinema.</p>
+      <h3 class="svc-name" data-i18n="svc3_name">Music Supervision</h3>
+      <p class="svc-desc" data-i18n="svc3_desc">From brief to final delivery. We find the right music, manage the creative and legal process end-to-end, and ensure every track is properly licensed for every medium — TV, radio, online, outdoor, cinema.</p>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">04</div>
-      <h3 class="svc-name">Original Composition</h3>
-      <p class="svc-desc">When licensing isn't the answer — budget, approval risk, or brand fit — we compose original music that captures exactly the right energy. Pre-cleared, fully owned, tailored to your brief and all media.</p>
+      <h3 class="svc-name" data-i18n="svc4_name">Original Composition</h3>
+      <p class="svc-desc" data-i18n="svc4_desc">When licensing isn't the answer — budget, approval risk, or brand fit — we compose original music that captures exactly the right energy. Pre-cleared, fully owned, tailored to your brief and all media.</p>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">05</div>
-      <h3 class="svc-name">Radio Production</h3>
-      <p class="svc-desc">Full radio advertising production from concept to broadcast-ready. Music, voice, sound design. We understand the Belgian radio landscape — commercial, public, regional — and produce for it.</p>
+      <h3 class="svc-name" data-i18n="svc5_name">Radio Production</h3>
+      <p class="svc-desc" data-i18n="svc5_desc">Full radio advertising production from concept to broadcast-ready. Music, voice, sound design. We understand the Belgian radio landscape — commercial, public, regional — and produce for it.</p>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">06</div>
-      <h3 class="svc-name">Catalog Licensing</h3>
-      <p class="svc-desc">Access our curated catalog of original productions — pre-cleared, competitively priced, available immediately. No approval delays, no unexpected refusals, no surprises.</p>
+      <h3 class="svc-name" data-i18n="svc6_name">Catalog Licensing</h3>
+      <p class="svc-desc" data-i18n="svc6_desc">Access our curated catalog of original productions — pre-cleared, competitively priced, available immediately. No approval delays, no unexpected refusals, no surprises.</p>
     </div>
   </div>
 </section>
 
 <!-- CASES -->
 <section id="cases">
-  <div class="sec-label">03 — Cases</div>
-  <h2 class="sec-title reveal">Real briefs.<br>Real results.</h2>
+  <div class="sec-label" data-i18n="label_03">03 — Cases</div>
+  <h2 class="sec-title reveal" data-i18n-html="cases_title">Real briefs.<br>Real results.</h2>
   <div class="cases-grid">
     <div class="case-card reveal">
-      <span class="case-tag">Automotive · All Media · Two Territories</span>
-      <h3 class="case-brief">A famous 80s synth track. Publishing cleared. Sound-alike produced.</h3>
-      <p class="case-desc">An automotive client needed the unmistakable energy of an iconic 1980s synth track across two territories. We cleared the publishing rights and — rather than license the master — produced a stunning sound-alike that captured every nuance of the original. The client got the sound they wanted, owned the recording outright, and saved significantly on master fees.</p>
-      <div class="case-result">↳ Right sound. Smart route. Full ownership.</div>
+      <span class="case-tag" data-i18n="case1_tag">Automotive · All Media · Two Territories</span>
+      <h3 class="case-brief" data-i18n="case1_brief">A famous 80s synth track. Publishing cleared. Sound-alike produced.</h3>
+      <p class="case-desc" data-i18n="case1_desc">An automotive client needed the unmistakable energy of an iconic 1980s synth track across two territories. We cleared the publishing rights and — rather than license the master — produced a stunning sound-alike that captured every nuance of the original. The client got the sound they wanted, owned the recording outright, and saved significantly on master fees.</p>
+      <div class="case-result"><span data-i18n="case1_result">↳ Right sound. Smart route. Full ownership.</span></div>
       <span class="case-bg-num">01</span>
     </div>
     <div class="case-card reveal">
-      <span class="case-tag">FMCG · TV + Digital · Benelux</span>
-      <h3 class="case-brief">First choice refused. Second choice became the campaign signature.</h3>
-      <p class="case-desc">A client's preferred track came back refused for advertising use. We had pre-assessed two alternatives before presenting the brief. The second option cleared in 9 days, cost 60% less, and became so recognisably associated with the brand it ran across three years of campaigns.</p>
-      <div class="case-result">↳ Smarter choice. Stronger result.</div>
+      <span class="case-tag" data-i18n="case2_tag">FMCG · TV + Digital · Benelux</span>
+      <h3 class="case-brief" data-i18n="case2_brief">First choice refused. Second choice became the campaign signature.</h3>
+      <p class="case-desc" data-i18n="case2_desc">A client's preferred track came back refused for advertising use. We had pre-assessed two alternatives before presenting the brief. The second option cleared in 9 days, cost 60% less, and became so recognisably associated with the brand it ran across three years of campaigns.</p>
+      <div class="case-result"><span data-i18n="case2_result">↳ Smarter choice. Stronger result.</span></div>
       <span class="case-bg-num">02</span>
     </div>
     <div class="case-card reveal">
-      <span class="case-tag">Retail · TV + Online · Belgium</span>
-      <h3 class="case-brief">Original composition when no licence was possible — or necessary.</h3>
-      <p class="case-desc">A specialised omni-channel retailer wanted the energy of a specific contemporary hit but faced both budget constraints and the fact that the track was exclusively licensed to a Hollywood soundtrack. We composed an original track capturing the exact character needed. The client owns it outright and has used it across TV and online campaigns in three territories.</p>
-      <div class="case-result">↳ Original. Owned. Ongoing.</div>
+      <span class="case-tag" data-i18n="case3_tag">Retail · TV + Online · Belgium</span>
+      <h3 class="case-brief" data-i18n="case3_brief">Original composition when no licence was possible — or necessary.</h3>
+      <p class="case-desc" data-i18n="case3_desc">A specialised omni-channel retailer wanted the energy of a specific contemporary hit but faced both budget constraints and the fact that the track was exclusively licensed to a Hollywood soundtrack. We composed an original track capturing the exact character needed. The client owns it outright and has used it across TV and online campaigns in three territories.</p>
+      <div class="case-result"><span data-i18n="case3_result">↳ Original. Owned. Ongoing.</span></div>
       <span class="case-bg-num">03</span>
     </div>
     <div class="case-card reveal">
-      <span class="case-tag">Automotive · Cinema + Digital · Benelux</span>
-      <h3 class="case-brief">Multi-territory clearance for a premium launch campaign.</h3>
-      <p class="case-desc">A car brand needed a classic track cleared across Belgium, the Netherlands and Luxembourg simultaneously, with different media mixes per market. We coordinated with four rights holders across two continents and delivered a single consolidated licence package covering the full Benelux rollout.</p>
-      <div class="case-result">↳ One brief. Three markets. Four rights holders. Done.</div>
+      <span class="case-tag" data-i18n="case4_tag">Automotive · Cinema + Digital · Benelux</span>
+      <h3 class="case-brief" data-i18n="case4_brief">Multi-territory clearance for a premium launch campaign.</h3>
+      <p class="case-desc" data-i18n="case4_desc">A car brand needed a classic track cleared across Belgium, the Netherlands and Luxembourg simultaneously, with different media mixes per market. We coordinated with four rights holders across two continents and delivered a single consolidated licence package covering the full Benelux rollout.</p>
+      <div class="case-result"><span data-i18n="case4_result">↳ One brief. Three markets. Four rights holders. Done.</span></div>
       <span class="case-bg-num">04</span>
     </div>
   </div>
@@ -619,7 +621,7 @@
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="sec-label">04 — About</div>
+  <div class="sec-label" data-i18n="label_04">04 — About</div>
   <div class="about-grid">
     <div class="about-buoy-wrap">
       <div class="buoy-glow"></div>
@@ -657,12 +659,13 @@
         </svg>
       </div>
       <div class="about-name">Benoît Dobbelstein</div>
-      <div class="about-role">Founder · Music Licensing</div>
+      <div class="about-role" data-i18n="about_role">Founder · Music Licensing</div>
+      <div class="about-role" style="margin-top:8px; opacity:.7;">EN · FR · NL · DE</div>
     </div>
 
     <div>
-      <h2 class="sec-title reveal">The person<br>who speaks<br>both languages.</h2>
-      <p class="about-text reveal">
+      <h2 class="sec-title reveal" data-i18n-html="about_title">The person<br>who speaks<br>both languages.</h2>
+      <p class="about-text reveal" data-i18n-html="about_text">
         Most music licensing problems happen at the intersection of two worlds that rarely talk to each other: <strong>advertising</strong> and <strong>music rights</strong>.
         <br><br>
         Ad agencies understand briefs, timelines, and brand strategy. Music publishers understand rights, royalties, and approval chains. Neither speaks the other's language fluently.
@@ -672,14 +675,12 @@
         We know what a creative director needs. And we know which phone to call at Warner Chappell.
       </p>
       <div class="skills-grid reveal">
-        <div class="skill-pill">Radio Ad Production</div>
-        <div class="skill-pill">Music Rights Clearance</div>
-        <div class="skill-pill">Label &amp; Publishing</div>
-        <div class="skill-pill">Sync Licensing</div>
-        <div class="skill-pill">Composition for Advertising</div>
-        <div class="skill-pill">Belgian Music Law</div>
-        <div class="skill-pill">EN · FR · NL · DE</div>
-        <div class="skill-pill">Benelux Markets</div>
+        <div class="skill-pill" data-i18n="skill1">Music Rights Clearance</div>
+        <div class="skill-pill" data-i18n="skill2">Sync Licensing</div>
+        <div class="skill-pill" data-i18n="skill3">Label &amp; Publishing</div>
+        <div class="skill-pill" data-i18n="skill4">Radio Ad Production</div>
+        <div class="skill-pill" data-i18n="skill5">Custom Music Production</div>
+        <div class="skill-pill" data-i18n="skill6">Music Supervision</div>
       </div>
     </div>
   </div>
@@ -687,31 +688,31 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="sec-label">05 — Contact</div>
+  <div class="sec-label" data-i18n="label_05">05 — Contact</div>
   <div class="contact-grid">
     <div>
-      <h2 class="sec-title reveal">Got a brief?<br>Let's talk.</h2>
-      <p class="contact-intro reveal">
+      <h2 class="sec-title reveal" data-i18n-html="contact_title">Got a brief?<br>Let's talk.</h2>
+      <p class="contact-intro reveal" data-i18n-html="contact_intro">
         Tell us what you need. A track to license, a campaign in production, a budget question — <strong>we respond within 24 hours.</strong>
         <br><br>
         No brief is too complex. No timeline too tight for a first conversation.
       </p>
       <div class="contact-details reveal">
-        <div class="contact-line"><strong>Email</strong><a href="#" id="main-email"></a></div>
-        <div class="contact-line"><strong>Phone</strong><a href="tel:+32495228656">+32 495 228 656</a></div>
-        <div class="contact-line"><strong>Based</strong><span>Belgium — serving Benelux &amp; beyond</span></div>
-        <div class="contact-line"><strong>Lang</strong><span>EN · FR · NL · DE</span></div>
+        <div class="contact-line"><strong data-i18n="contact_email_lbl">Email</strong><a href="#" id="main-email"></a></div>
+        <div class="contact-line"><strong data-i18n="contact_phone_lbl">Phone</strong><a href="tel:+32495228656"><span data-i18n="contact_phone_cta">Click to Call</span></a></div>
+        <div class="contact-line"><strong data-i18n="contact_based_lbl">Based</strong><span data-i18n="contact_based_val">Belgium — serving Benelux &amp; beyond</span></div>
+        <div class="contact-line"><strong data-i18n="contact_lang_lbl">Lang</strong><span>EN · FR · NL · DE</span></div>
       </div>
     </div>
 
     <div class="reveal">
       <a href="#" id="brief-btn" class="btn-submit" style="display:inline-flex; margin-top:16px; text-decoration:none; font-size:28px; padding:24px 64px;">
-        Send Us Your Brief
+        <span data-i18n="brief_btn">Send Us Your Brief</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
-      <p style="margin-top:24px; font-size:13px; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:.12em;">YOUR EMAIL CLIENT WILL OPEN AUTOMATICALLY</p>
+      <p style="margin-top:24px; font-size:13px; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:.12em;"><span data-i18n="brief_hint">YOUR EMAIL CLIENT WILL OPEN AUTOMATICALLY</span></p>
     </div>
     <div id="form-success" style="display:none; padding: 48px 0;">
       <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--orange); margin-bottom:16px;">Message Received.</div>
@@ -726,30 +727,30 @@
 
 <!-- GDPR -->
 <section id="gdpr-policy">
-  <div class="sec-label">Privacy &amp; GDPR</div>
+  <div class="sec-label" data-i18n="label_gdpr">Privacy &amp; GDPR</div>
   <div class="gdpr-grid">
     <div class="gdpr-block">
-      <h4>Data Controller</h4>
+      <h4 data-i18n="gdpr1_title">Data Controller</h4>
       <p>Help, I'm Syncing is the data controller for personal data collected through this website. Registered in Belgium. All processing complies with Regulation (EU) 2016/679 (GDPR) and applicable Belgian data protection law.</p>
     </div>
     <div class="gdpr-block">
-      <h4>What We Collect &amp; Why</h4>
+      <h4 data-i18n="gdpr2_title">What We Collect &amp; Why</h4>
       <p>We collect name, email, company, and message content submitted via the contact form, solely to respond to your enquiry (legal basis: legitimate interest / contractual necessity). We do not use your data for marketing without explicit consent. We do not sell or share your data with third parties.</p>
     </div>
     <div class="gdpr-block">
-      <h4>Your Rights</h4>
+      <h4 data-i18n="gdpr3_title">Your Rights</h4>
       <p>Under GDPR you have the right to access, rectify, erase, restrict, or port your personal data, and to object to processing. Contact us at <a href="#" id="privacy-email"></a>. You may also lodge a complaint with the <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank">Belgian Data Protection Authority (GBA/APD)</a>.</p>
     </div>
     <div class="gdpr-block">
-      <h4>Retention</h4>
+      <h4 data-i18n="gdpr4_title">Retention</h4>
       <p>Contact form data is retained for a maximum of 24 months from submission, or deleted upon request. Data related to active contracts is retained for the duration of the contractual relationship plus 7 years in accordance with Belgian accounting law.</p>
     </div>
     <div class="gdpr-block">
-      <h4>Cookies</h4>
+      <h4 data-i18n="gdpr5_title">Cookies</h4>
       <p>This website uses no tracking cookies, no analytics platforms, and no third-party advertising scripts. No personal data is transferred outside the European Economic Area.</p>
     </div>
     <div class="gdpr-block">
-      <h4>Updates</h4>
+      <h4 data-i18n="gdpr6_title">Updates</h4>
       <p>This privacy notice was last updated April 2026. We may update it periodically. Continued use of this website following any update constitutes acceptance of the revised notice.</p>
     </div>
   </div>
@@ -765,9 +766,15 @@
       <path d="M3 50 A47 47 0 0 1 50 3 L50 22 A28 28 0 0 0 22 50 Z" fill="#F6F4F0"/>
       <circle cx="50" cy="50" r="18" fill="#0A0A0A"/>
     </svg>
-    <span class="footer-copy">© 2026 Help, I'm Syncing — Belgium</span>
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Help, I'm Syncing — Belgium</span>
   </div>
-  <span class="footer-right">Music licensing for brands. · EN · FR · NL · DE</span>
+  <span class="footer-right" data-i18n="footer_right">Music licensing for brands.</span>
+  <div class="footer-langs">
+    <span class="lang-badge" onclick="setLang('en')">EN</span>
+    <span class="lang-badge" onclick="setLang('fr')">FR</span>
+    <span class="lang-badge" onclick="setLang('nl')">NL</span>
+    <span class="lang-badge" onclick="setLang('de')">DE</span>
+  </div>
 </footer>
 <script>
 (function(){
@@ -843,3 +850,142 @@
     document.getElementById('form-success').style.display = 'block';
     document.getElementById('contact').scrollIntoView();
   }
+
+}
+</script>
+
+<script>
+var T={en:{nav_problem:"The Problem",nav_services:"Services",nav_cases:"Cases",nav_about:"About",nav_contact:"Contact",alert_badge:"Music Rights Emergency ? We Come To The Rescue",hero_strong:"Music licensing for brands. And the ones that brand brands.",hero_sub:"When you need a famous track cleared fast — and done right.",label_01:"01 — The Problem",label_02:"02 — What We Do",label_03:"03 — Cases",label_04:"04 — About",label_05:"05 — Contact",label_gdpr:"Privacy & GDPR",problem_title:"You sold<br>the idea.<br>Now what?",problem_intro:"The creative presentation went perfectly. The client approved the concept, loved the track, and signed off the budget.<br><br>Then legal asks: <strong>“Do we actually have the rights to use that?”</strong><br><br>Suddenly the production timeline is on hold. Nobody in the agency knows who to call. The brand manager is getting nervous. And the campaign launch date isn’t moving.<br><br><strong>This is the moment we exist for.</strong><br>An even better moment would have been before you sold the idea.",sc1_title:"Your agency doesn’t have a music rights department",sc2_title:"The budget conversation happens too late",sc3_title:"The clock is already running",svc_title:"Full-service<br>music licensing.",svc1_name:"Rights Clearance",svc2_name:"Music Strategy",svc3_name:"Music Supervision",svc4_name:"Original Composition",svc5_name:"Radio Production",svc6_name:"Catalog Licensing",cases_title:"Real briefs.<br>Real results.",about_title:"The person<br>who speaks<br>both languages.",contact_title:"Got a brief?<br>Let’s talk.",contact_intro:"Tell us what you need. A track to license, a campaign in production, a budget question — <strong>we respond within 24 hours.</strong><br><br>No brief is too complex. No timeline too tight for a first conversation.",contact_email_lbl:"Email",contact_phone_lbl:"Phone",contact_based_lbl:"Based",contact_lang_lbl:"Lang",contact_phone_cta:"Click to Call",contact_based_val:"Belgium — serving Benelux & beyond",brief_btn:"Send Us Your Brief",brief_hint:"YOUR EMAIL CLIENT WILL OPEN AUTOMATICALLY",footer_copy:"© 2026 Help, I’m Syncing — Belgium",svc1_desc:'We identify all rights holders — publisher, master, neighbouring rights — and negotiate sync licences on your behalf with Warner Chappell, Universal, Sony, and independent publishers worldwide.',
+svc2_desc:'Before you commit to a track, we assess feasibility, budget, and alternatives. We present tiered options — ideal choice, safer fallback, wildcard — so your campaign never stalls on a refusal.',
+svc3_desc:'From brief to final delivery. We find the right music, manage the creative and legal process end-to-end, and ensure every track is properly licensed for every medium — TV, radio, online, outdoor, cinema.',
+svc4_desc:'When licensing isn\'t the answer — budget, approval risk, or brand fit — we compose original music that captures exactly the right energy. Pre-cleared, fully owned, tailored to your brief and all media.',
+svc5_desc:'Full radio advertising production from concept to broadcast-ready. Music, voice, sound design. We understand the Belgian radio landscape — commercial, public, regional — and produce for it.',
+svc6_desc:'Access our curated catalog of original productions — pre-cleared, competitively priced, available immediately. No approval delays, no unexpected refusals, no surprises.',
+sc1_body:'Most don\'t. When a famous track is needed, it falls to a producer or account manager who has never negotiated a sync licence — and often doesn\'t know whether the track is even available for advertising use. That\'s where campaigns get delayed, or get it wrong.',
+sc2_body:'An all-media licence for a famous track can easily run into five figures — sometimes more. If that number only surfaces after the client has fallen in love with the song, you have a problem. We give you a realistic picture before anything is committed.',
+sc3_body:'Clearances involve multiple rights holders, international approvals, and legal paperwork — minimum two weeks even when everything goes smoothly. We start the process the right way from day one, so your campaign doesn\'t wait for a signature.',
+case1_tag:'Automotive · All Media · Two Territories',
+case2_tag:'FMCG · TV + Digital · Benelux',
+case3_tag:'Retail · TV + Online · Belgium',
+case4_tag:'Automotive · Cinema + Digital · Benelux',
+case1_brief:'A famous 80s synth track. Publishing cleared. Sound-alike produced.',
+case2_brief:'First choice refused. Second choice became the campaign signature.',
+case3_brief:'Original composition when no licence was possible — or necessary.',
+case4_brief:'Multi-territory clearance for a premium launch campaign.',
+case1_desc:'An automotive client needed the unmistakable energy of an iconic 1980s synth track across two territories. We cleared the publishing rights and — rather than license the master — produced a stunning sound-alike that captured every nuance of the original. The client got the sound they wanted, owned the recording outright, and saved significantly on master fees.',
+case2_desc:'A client\'s preferred track came back refused for advertising use. We had pre-assessed two alternatives before presenting the brief. The second option cleared in 9 days, cost 60% less, and became so recognisably associated with the brand it ran across three years of campaigns.',
+case3_desc:'A specialised omni-channel retailer wanted the energy of a specific contemporary hit but faced both budget constraints and the fact that the track was exclusively licensed to a Hollywood soundtrack. We composed an original track capturing the exact character needed. The client owns it outright and has used it across TV and online campaigns in three territories.',
+case4_desc:'A car brand needed a classic track cleared across Belgium, the Netherlands and Luxembourg simultaneously, with different media mixes per market. We coordinated with four rights holders across two continents and delivered a single consolidated licence package covering the full Benelux rollout.',
+case1_result:'↳ Right sound. Smart route. Full ownership.',
+case2_result:'↳ Smarter choice. Stronger result.',
+case3_result:'↳ Original. Owned. Ongoing.',
+case4_result:'↳ One brief. Three markets. Four rights holders. Done.',
+about_role:'Founder · Music Licensing',
+about_text:'Most music licensing problems happen at the intersection of two worlds that rarely talk to each other: <strong>advertising</strong> and <strong>music rights</strong>.<br><br>Ad agencies understand briefs, timelines, and brand strategy. Music publishers understand rights, royalties, and approval chains. Neither speaks the other\'s language fluently.<br><br><strong>Help, I\'m Syncing was built by someone who grew up in both.</strong> With a background spanning radio ad production, label ownership, and composition for advertising — operating fluently across Belgium\'s French, Dutch, and English-speaking markets — we sit at exactly the intersection where your problem lives.<br><br>We know what a creative director needs. And we know which phone to call at Warner Chappell.',
+skill1:'Music Rights Clearance',
+skill2:'Sync Licensing',
+skill3:'Label & Publishing',
+skill4:'Radio Ad Production',
+skill5:'Custom Music Production',
+skill6:'Music Supervision',
+gdpr1_title:'Data Controller',
+gdpr2_title:'What We Collect & Why',
+gdpr3_title:'Your Rights',
+gdpr4_title:'Retention',
+gdpr5_title:'Cookies',
+gdpr6_title:'Updates',
+footer_right:"Music licensing for brands."},
+fr:{nav_problem:"Le Problème",nav_services:"Services",nav_cases:"Cas",nav_about:"À propos",nav_contact:"Contact",alert_badge:"Urgence droits musicaux ? Nous venons à la rescousse",hero_strong:"Licences musicales pour les marques. Et ceux qui les créent.",hero_sub:"Quand vous avez besoin d’un titre connu clearé rapidement — et bien fait.",label_01:"01 — Le Problème",label_02:"02 — Ce que nous faisons",label_03:"03 — Cas",label_04:"04 — À propos",label_05:"05 — Contact",label_gdpr:"Confidentialité & RGPD",problem_title:"Vous avez vendu<br>l’idée.<br>Et maintenant ?",problem_intro:"La présentation créative s’est parfaitement déroulée. Le client a approuvé le concept, adoré le titre, et validé le budget.<br><br>Puis le juridique demande : <strong>« Avons-nous réellement le droit d’utiliser ce titre ? »</strong><br><br>Soudain, le planning est bloqué. Personne dans l’agence ne sait qui appeler. Le brand manager s’inquète. Et la date de lancement ne bouge pas.<br><br><strong>C’est précisément pour ce moment que nous existons.</strong><br>Un meilleur moment aurait été avant que vous vendiez l’idée.",sc1_title:"Votre agence n’a pas de département droits musicaux",sc2_title:"La conversation budget arrive trop tard",sc3_title:"Le chrono tourne déjà",svc_title:"Licences musicales<br>complètes.",svc1_name:"Gestion des droits",svc2_name:"Stratégie musicale",svc3_name:"Supervision musicale",svc4_name:"Composition originale",svc5_name:"Production radio",svc6_name:"Catalogue sous licence",cases_title:"Vrais briefs.<br>Vrais résultats.",about_title:"La personne<br>qui parle<br>les deux langues.",contact_title:"Un brief ?<br>Parlons-en.",contact_intro:"Dites-nous ce dont vous avez besoin. Un titre à licencier, une campagne en production, une question de budget — <strong>nous répondons dans les 24 heures.</strong><br><br>Aucun brief n’est trop complexe. Aucun délai trop serré pour une première conversation.",contact_email_lbl:"Email",contact_phone_lbl:"Téléphone",contact_based_lbl:"Basé",contact_lang_lbl:"Langues",contact_phone_cta:"Cliquer pour appeler",contact_based_val:"Belgique — au service du Benelux et au-delà",brief_btn:"Envoyez votre brief",brief_hint:"VOTRE CLIENT DE MESSAGERIE S’OUVRIRA AUTOMATIQUEMENT",footer_copy:"© 2026 Help, I’m Syncing — Belgique",svc1_desc:'Nous identifions tous les détenteurs de droits — éditeur, master, droits voisins — et négocions les licences de synchronisation en votre nom auprès de Warner Chappell, Universal, Sony et des éditeurs indépendants dans le monde entier.',
+svc2_desc:'Avant de vous engager sur un titre, nous évaluons la faisabilité, le budget et les alternatives. Nous présentons des options hiérarchisées — choix idéal, solution de repli, carte joker — pour que votre campagne ne soit jamais bloquée sur un refus.',
+svc3_desc:'Du brief à la livraison finale. Nous trouvons la bonne musique, gérons le processus créatif et juridique de bout en bout, et veillons à ce que chaque titre soit correctement licencié pour chaque média — TV, radio, online, outdoor, cinéma.',
+svc4_desc:'Quand la licence n\'est pas la réponse — budget, risque d\'approbation ou adéquation à la marque — nous composons une musique originale qui capture exactement la bonne énergie. Pré-clearée, entièrement détenue, adaptée à votre brief et tous médias.',
+svc5_desc:'Production radio publicitaire complète, du concept au prêt-à-diffuser. Musique, voix, design sonore. Nous connaissons le paysage radio belge — commercial, public, régional — et produisons pour lui.',
+svc6_desc:'Accédez à notre catalogue de productions originales — pré-clearées, à prix compétitifs, disponibles immédiatement. Aucun délai d\'approbation, aucun refus inattendu, aucune surprise.',
+sc1_body:'La plupart ne l\'ont pas. Quand un titre connu est nécessaire, la tâche incombe à un producteur ou un chef de projet qui n\'a jamais négocié une licence de synchronisation — et qui souvent ne sait même pas si le titre est disponible pour un usage publicitaire. C\'est là que les campagnes prennent du retard, ou se trompent.',
+sc2_body:'Une licence tous médias pour un titre connu peut facilement atteindre cinq chiffres — parfois plus. Si ce chiffre n\'apparaît qu\'après que le client soit tombé amoureux du titre, vous avez un problème. Nous vous donnons une image réaliste avant tout engagement.',
+sc3_body:'Les clearances impliquent plusieurs détenteurs de droits, des approbations internationales et des formalités juridiques — minimum deux semaines même quand tout se passe bien. Nous démarrons le processus correctement dès le premier jour, pour que votre campagne n\'attende pas une signature.',
+case1_tag:'Automobile · Tous médias · Deux territoires',
+case2_tag:'FMCG · TV + Digital · Benelux',
+case3_tag:'Retail · TV + Online · Belgique',
+case4_tag:'Automobile · Cinéma + Digital · Benelux',
+case1_brief:'Un célèbre titre synthé des années 80. Droits d\'édition clearés. Sound-alike produit.',
+case2_brief:'Premier choix refusé. Le deuxième est devenu la signature de la campagne.',
+case3_brief:'Composition originale quand aucune licence n\'était possible — ni nécessaire.',
+case4_brief:'Clearance multi-territoire pour une campagne de lancement premium.',
+case1_desc:'Un client automobile avait besoin de l\'énergie inimitable d\'un titre synthé iconique des années 80 sur deux territoires. Nous avons clearé les droits d\'édition et — plutôt que de licencier le master — produit un sound-alike saisissant qui a capturé chaque nuance de l\'original. Le client a obtenu le son souhaité, détient l\'enregistrement et a réalisé des économies significatives sur les frais de master.',
+case2_desc:'Le titre préféré d\'un client a été refusé pour un usage publicitaire. Nous avions pré-évalué deux alternatives avant de présenter le brief. La deuxième option a été clearée en 9 jours, coûté 60% de moins, et est devenue si reconnaissablement associée à la marque qu\'elle a tourné sur trois ans de campagnes.',
+case3_desc:'Un retailer omnicanal spécialisé voulait l\'énergie d\'un hit contemporain spécifique mais faisait face à des contraintes budgétaires et au fait que le titre était exclusivement licencié à une bande originale hollywoodienne. Nous avons composé un titre original capturant exactement le caractère souhaité. Le client le détient entièrement et l\'a utilisé dans des campagnes TV et online sur trois territoires.',
+case4_desc:'Une marque automobile avait besoin d\'un titre classique clearé simultanément en Belgique, aux Pays-Bas et au Luxembourg, avec des mix médias différents par marché. Nous avons coordonné avec quatre détenteurs de droits sur deux continents et livré un package de licence consolidé couvrant tout le déploiement Benelux.',
+case1_result:'↳ Le bon son. La bonne voie. Propriété totale.',
+case2_result:'↳ Choix plus intelligent. Résultat plus fort.',
+case3_result:'↳ Original. Détenu. Durable.',
+case4_result:'↳ Un brief. Trois marchés. Quatre détenteurs. Fait.',
+about_role:'Fondateur · Licences musicales',
+about_text:'La plupart des problèmes de licences musicales surviennent à l\'intersection de deux mondes qui se parlent rarement : <strong>la publicité</strong> et <strong>les droits musicaux</strong>.<br><br>Les agences comprennent les briefs, les délais et la stratégie de marque. Les éditeurs musicaux comprennent les droits, les royalties et les chaînes d\'approbation. Aucun ne parle couramment la langue de l\'autre.<br><br><strong>Help, I\'m Syncing a été créé par quelqu\'un qui a grandi dans les deux.</strong> Avec un parcours couvrant la production radio publicitaire, la gestion de label et la composition pour la publicité — opérant couramment sur les marchés francophones, néerlandophones et anglophones de Belgique — nous sommes précisément à l\'intersection où se situe votre problème.<br><br>Nous savons ce dont un directeur créatif a besoin. Et nous savons quel numéro appeler chez Warner Chappell.',
+skill1:'Gestion des droits',
+skill2:'Licences de sync',
+skill3:'Label & Édition',
+skill4:'Production radio',
+skill5:'Production musicale sur mesure',
+skill6:'Supervision musicale',
+gdpr1_title:'Responsable du traitement',
+gdpr2_title:'Ce que nous collectons & pourquoi',
+gdpr3_title:'Vos droits',
+gdpr4_title:'Conservation',
+gdpr5_title:'Cookies',
+gdpr6_title:'Mises à jour',
+footer_right:"Licences musicales pour les marques."},
+nl:{nav_problem:"Het Probleem",nav_services:"Diensten",nav_cases:"Cases",nav_about:"Over ons",nav_contact:"Contact",alert_badge:"Muziekrechten noodgeval? Wij komen te hulp",hero_strong:"Muzieklicenties voor merken. En de mensen die merken bouwen.",hero_sub:"Wanneer u een bekend nummer snel gecleared nodig heeft — en goed gedaan.",label_01:"01 — Het Probleem",label_02:"02 — Wat wij doen",label_03:"03 — Cases",label_04:"04 — Over ons",label_05:"05 — Contact",label_gdpr:"Privacy & GDPR",problem_title:"U verkocht<br>het idee.<br>En nu?",problem_intro:"De creatieve presentatie verliep perfect. De klant keurde het concept goed, was dol op het nummer en tekende het budget af.<br><br>Dan vraagt juridische zaken: <strong>“Hebben we eigenlijk het recht om dit te gebruiken?”</strong><br><br>Plots ligt de productieplanning stil. Niemand in het bureau weet wie te bellen. De brand manager wordt nerveus. En de lanceerdatum verschuift niet.<br><br><strong>Dit is precies het moment waarvoor wij bestaan.</strong><br>Een beter moment was geweest vóór u het idee verkocht.",sc1_title:"Uw bureau heeft geen muziekrechten afdeling",sc2_title:"Het budgetgesprek komt te laat",sc3_title:"De klok tikt al",svc_title:"Volledige<br>muzieklicenties.",svc1_name:"Rechtenbeheer",svc2_name:"Muziekstrategie",svc3_name:"Muziekbegeleiding",svc4_name:"Originele compositie",svc5_name:"Radioproductie",svc6_name:"Cataloguslicenties",cases_title:"Echte briefs.<br>Echte resultaten.",about_title:"De persoon<br>die beide talen<br>spreekt.",contact_title:"Een brief?<br>Laten we praten.",contact_intro:"Vertel ons wat u nodig heeft. Een nummer om te licentiëren, een campagne in productie, een budgetvraag — <strong>we reageren binnen 24 uur.</strong><br><br>Geen brief is te complex. Geen deadline te krap voor een eerste gesprek.",contact_email_lbl:"E-mail",contact_phone_lbl:"Telefoon",contact_based_lbl:"Gevestigd",contact_lang_lbl:"Talen",contact_phone_cta:"Klik om te bellen",contact_based_val:"België — actief in de Benelux en daarbuiten",brief_btn:"Stuur uw brief",brief_hint:"UW E-MAILPROGRAMMA OPENT AUTOMATISCH",footer_copy:"© 2026 Help, I’m Syncing — België",svc1_desc:'We identificeren alle rechthebbenden — uitgever, master, naburige rechten — en onderhandelen synclicenties namens u met Warner Chappell, Universal, Sony en onafhankelijke uitgevers wereldwijd.',
+svc2_desc:'Voordat u zich vastlegt op een nummer, beoordelen we de haalbaarheid, het budget en de alternatieven. We presenteren gelaagde opties — ideale keuze, veilige terugval, wildcard — zodat uw campagne nooit vastloopt op een weigering.',
+svc3_desc:'Van brief tot eindlevering. We vinden de juiste muziek, beheren het creatieve en juridische proces van begin tot eind, en zorgen dat elk nummer correct gelicentieerd is voor elk medium — TV, radio, online, outdoor, bioscoop.',
+svc4_desc:'Wanneer licenties niet het antwoord zijn — budget, goedkeuringsrisico of merkfit — componeren we originele muziek die precies de juiste energie heeft. Vooraf gecleared, volledig eigendom, afgestemd op uw brief en alle media.',
+svc5_desc:'Volledige radiorelamproductie van concept tot uitzendklaar. Muziek, stem, geluidsontwerp. We begrijpen het Belgische radiolandschap — commercieel, publiek, regionaal — en produceren daarvoor.',
+svc6_desc:'Toegang tot ons gecureerde catalogus van originele producties — vooraf gecleared, concurrerende prijzen, onmiddellijk beschikbaar. Geen goedkeuringsvertragingen, geen onverwachte weigeringen, geen verrassingen.',
+sc1_body:'De meeste hebben dat niet. Wanneer een bekend nummer nodig is, valt de taak op een producer of accountmanager die nooit een synclicentie heeft onderhandeld — en vaak niet weet of het nummer überhaupt beschikbaar is voor reclamedoeleinden. Dat is waar campagnes vertraging oplopen, of de fout ingaan.',
+sc2_body:'Een all-media licentie voor een bekend nummer kan gemakkelijk in de vijfcijfers lopen — soms meer. Als dat bedrag pas opduikt nadat de klant verliefd is geworden op het nummer, heeft u een probleem. We geven u een realistisch beeld voordat er iets wordt vastgelegd.',
+sc3_body:'Clearances omvatten meerdere rechthebbenden, internationale goedkeuringen en juridische formaliteiten — minimaal twee weken zelfs als alles vlot verloopt. We starten het proces op de juiste manier vanaf dag één, zodat uw campagne niet wacht op een handtekening.',
+case1_tag:'Automotive · Alle media · Twee territoria',
+case2_tag:'FMCG · TV + Digital · Benelux',
+case3_tag:'Retail · TV + Online · België',
+case4_tag:'Automotive · Bioscoop + Digital · Benelux',
+case1_brief:'Een beroemde 80s synthtrack. Uitgaverechten gecleared. Sound-alike geproduceerd.',
+case2_brief:'Eerste keuze geweigerd. De tweede werd de campagnehandtekening.',
+case3_brief:'Originele compositie toen geen licentie mogelijk was — of nodig.',
+case4_brief:'Multi-territoriumclearance voor een premium lanceringscampagne.',
+case1_desc:'Een automotive klant had de onmiskenbare energie nodig van een iconische 80s synthtrack over twee territoria. We cleareden de uitgaverechten en — in plaats van het master te licentiëren — produceerden een verbluffende sound-alike die elke nuance van het origineel vastlegde. De klant kreeg het gewenste geluid, bezit de opname volledig en bespaarde significant op masterkosten.',
+case2_desc:'Het voorkeursnum mer van een klant werd geweigerd voor reclamedoeleinden. We hadden twee alternatieven voorbeoordeeld vóór de briefpresentatie. De tweede optie werd in 9 dagen gecleared, kostte 60% minder, en werd zo herkenbaar geassocieerd met het merk dat het drie jaar campagnes draaide.',
+case3_desc:'Een gespecialiseerde omnichannel retailer wilde de energie van een specifieke hedendaagse hit maar stond voor budgetbeperkingen en het feit dat het nummer exclusief was gelicentieerd aan een Hollywood-soundtrack. We componeerden een origineel nummer dat precies het gewenste karakter vastlegde. De klant bezit het volledig en heeft het gebruikt in TV- en onlinecampagnes in drie territoria.',
+case4_desc:'Een automerk had een klassiek nummer nodig dat simultaan gecleared werd over België, Nederland en Luxemburg, met verschillende mediamixen per markt. We coördineerden met vier rechthebbenden op twee continenten en leverden één geconsolideerd licentiepakket voor de volledige Benelux-uitrol.',
+case1_result:'↳ Juist geluid. Slimme route. Volledig eigendom.',
+case2_result:'↳ Slimmere keuze. Sterker resultaat.',
+case3_result:'↳ Origineel. Eigendom. Blijvend.',
+case4_result:'↳ Één brief. Drie markten. Vier rechthebbenden. Klaar.',
+about_role:'Oprichter · Muzieklicenties',
+about_text:'De meeste problemen met muzieklicenties ontstaan op het snijpunt van twee werelden die zelden met elkaar praten: <strong>reclame</strong> en <strong>muziekrechten</strong>.<br><br>Bureaus begrijpen briefs, deadlines en merkstrategie. Muziekuitgevers begrijpen rechten, royalties en goedkeuringsketens. Geen van beide spreekt de taal van de ander vloeiend.<br><br><strong>Help, I\'m Syncing werd gebouwd door iemand die in beide werelden is opgegroeid.</strong> Met een achtergrond in radiorelamproductie, labelbeheer en compositie voor reclame — vloeiend werkend in de Franstalige, Nederlandstalige en Engelstalige markten van België — bevinden we ons precies op het snijpunt waar uw probleem zich bevindt.<br><br>We weten wat een creatief directeur nodig heeft. En we weten welk nummer we bij Warner Chappell moeten bellen.',
+skill1:'Rechtenbeheer',
+skill2:'Synclicenties',
+skill3:'Label & Uitgeverij',
+skill4:'Radioproductie',
+skill5:'Maatwerkmuziekproductie',
+skill6:'Muziekbegeleiding',
+gdpr1_title:'Verwerkingsverantwoordelijke',
+gdpr2_title:'Wat we verzamelen & waarom',
+gdpr3_title:'Uw rechten',
+gdpr4_title:'Bewaring',
+gdpr5_title:'Cookies',
+gdpr6_title:'Updates',
+footer_right:"Muzieklicenties voor merken."},
+de:{nav_problem:"Das Problem",nav_services:"Leistungen",nav_cases:"Fälle",nav_about:"Über uns",nav_contact:"Kontakt",alert_badge:"Musikrechte-Notfall? Wir kommen zur Rettung",hero_strong:"Musiklizenzen für Marken. Und die, die Marken aufbauen.",hero_sub:"Wenn Sie einen bekannten Song schnell clearen müssen — und richtig.",label_01:"01 — Das Problem",label_02:"02 — Was wir tun",label_03:"03 — Fälle",label_04:"04 — Über uns",label_05:"05 — Kontakt",label_gdpr:"Datenschutz & DSGVO",problem_title:"Sie haben die Idee<br>verkauft.<br>Was jetzt?",problem_intro:"Die kreative Präsentation lief perfekt. Der Kunde genehmigte das Konzept, liebte den Song und gab das Budget frei.<br><br>Dann fragt die Rechtsabteilung: <strong>„Haben wir eigentlich das Recht, das zu verwenden?“</strong><br><br>Plötzlich liegt der Produktionsplan auf Eis. Niemand in der Agentur weiß, wen man anrufen soll. Der Brand Manager wird nervös. Und der Kampagnenstarttermin rückt nicht.<br><br><strong>Genau für diesen Moment existieren wir.</strong><br>Ein noch besserer Moment wäre vor dem Verkauf der Idee gewesen.",sc1_title:"Ihre Agentur hat keine Musikrechte-Abteilung",sc2_title:"Das Budgetgespräch kommt zu spät",sc3_title:"Die Uhr läuft bereits",svc_title:"Vollständige<br>Musiklizenzen.",svc1_name:"Rechteklärung",svc2_name:"Musikstrategie",svc3_name:"Musiksupervision",svc4_name:"Originalkomposition",svc5_name:"Radioproduktion",svc6_name:"Kataloglizenzen",cases_title:"Echte Briefs.<br>Echte Ergebnisse.",about_title:"Die Person,<br>die beide Sprachen<br>spricht.",contact_title:"Ein Brief?<br>Sprechen wir.",contact_intro:"Sagen Sie uns, was Sie brauchen. Ein zu lizenzierender Song, eine laufende Kampagne, eine Budgetfrage — <strong>wir antworten innerhalb von 24 Stunden.</strong><br><br>Kein Brief ist zu komplex. Keine Deadline zu eng für ein erstes Gespräch.",contact_email_lbl:"E-Mail",contact_phone_lbl:"Telefon",contact_based_lbl:"Standort",contact_lang_lbl:"Sprachen",contact_phone_cta:"Zum Anrufen klicken",contact_based_val:"Belgien — Benelux und darüber hinaus",brief_btn:"Brief senden",brief_hint:"IHR E-MAIL-CLIENT ÖFFNET SICH AUTOMATISCH",footer_copy:"© 2026 Help, I’m Syncing — Belgien",footer_right:"Musiklizenzen für Marken."}};
+
+function setLang(l){
+  var t=T[l]; if(!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(t[k]!==undefined)e.textContent=t[k];});
+  document.querySelectorAll('[data-i18n-html]').forEach(function(e){var k=e.getAttribute('data-i18n-html');if(t[k]!==undefined)e.innerHTML=t[k];});
+  document.querySelectorAll('.lang-badge').forEach(function(b){b.classList.toggle('active',b.textContent.trim().toLowerCase()===l);});
+  document.documentElement.lang=l;
+  try{localStorage.setItem('his_lang',l);}catch(e){}
+}
+(function(){var s='en';try{s=localStorage.getItem('his_lang')||'en';}catch(e){}setLang(s);})();
+</script>
+</body>
+</html>
